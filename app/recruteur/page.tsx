@@ -1,4 +1,4 @@
- 'use client'
+'use client'
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
@@ -138,7 +138,7 @@ export default function RecruteurPage() {
             {[
               { n: 4, l: 'Filières disponibles' },
               { n: '100%', l: 'Gratuit' },
-              { n: '24h', l: 'Délai publication' },
+              { n: '7j', l: 'Délai publication' },
               { n: '10', l: 'Candidatures max / offre' },
             ].map((s, i) => (
               <div key={i} className="bg-white border border-[#d5dad6] rounded-xl p-4 text-center">
