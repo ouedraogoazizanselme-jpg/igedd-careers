@@ -38,17 +38,15 @@ export default function Navbar() {
     router.push('/login')
   }
 
-  // Declare isRecruteur BEFORE using it
   const isRecruteur = role === 'recruteur' || role === 'admin'
   const canPublish = isRecruteur
   const prenom = user?.user_metadata?.prenom || user?.email?.split('@')[0] || ''
   const initial = prenom[0]?.toUpperCase() || '?'
 
-  // Conseils completely hidden from recruiters
   const navLinks = [
     { label: 'Offres', href: '/' },
     ...(!isRecruteur ? [{ label: 'Conseils carrière', href: '/conseils' }] : []),
-    { label: 'Espace recruteur', href: '/recruteur' },
+    ...(isRecruteur ? [{ label: 'Espace recruteur', href: '/recruteur' }] : []),
   ]
 
   return (
@@ -60,7 +58,6 @@ export default function Navbar() {
       }`}>
         <div className="max-w-7xl mx-auto px-4 lg:px-8 flex items-center justify-between">
 
-          {/* Logo */}
           <div className="flex items-center gap-2.5 cursor-pointer" onClick={() => router.push('/')}>
             <img
               src="https://igedd.net/wp-content/uploads/2023/06/logo-IGEDD-526x526-1.png"
@@ -78,7 +75,6 @@ export default function Navbar() {
             </div>
           </div>
 
-          {/* Desktop links */}
           <div className="hidden lg:flex items-center gap-6">
             {navLinks.map(link => (
               <button
@@ -98,7 +94,6 @@ export default function Navbar() {
             ))}
           </div>
 
-          {/* Right side */}
           <div className="flex items-center gap-3">
             {canPublish && (
               <button
@@ -137,6 +132,12 @@ export default function Navbar() {
                       Mon tableau de bord
                     </button>
                     <button
+                      onClick={() => { router.push('/profil'); setDropdownOpen(false) }}
+                      className="w-full text-left px-4 py-2.5 text-sm text-gray-600 hover:bg-[#f5f4f0] hover:text-[#2d6a4f] transition"
+                    >
+                      Mon profil
+                    </button>
+                    <button
                       onClick={handleLogout}
                       className="w-full text-left px-4 py-2.5 text-sm text-red-500 hover:bg-red-50 transition border-t border-[#d5dad6]"
                     >
@@ -154,7 +155,6 @@ export default function Navbar() {
               </button>
             )}
 
-            {/* Hamburger */}
             <button
               className="lg:hidden flex flex-col gap-1.5 p-1"
               onClick={() => setMenuOpen(!menuOpen)}
@@ -166,7 +166,6 @@ export default function Navbar() {
           </div>
         </div>
 
-        {/* Mobile menu */}
         {menuOpen && (
           <div className="lg:hidden bg-white border-t border-[#d5dad6] px-4 py-4 flex flex-col gap-3">
             {navLinks.map(link => (
